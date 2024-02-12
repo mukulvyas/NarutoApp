@@ -67,7 +67,7 @@ fun VixCardBiz() {
                     //Log.d("Clicked","Hurrayyy!! You Just Become Hokage")
                     buttonClickState.value = !buttonClickState.value
                 }){
-                    Text(text = "Datebyo")
+                    Text(text = "Hokage")
 
 
                 }
@@ -103,37 +103,58 @@ fun Content(){
             shape = RoundedCornerShape(corner = CornerSize(6.dp)),
             border = BorderStroke(width = 2.dp, color = Color.LightGray)
         ) {
-            Portfolio(data = listOf("First Hokage",
-                "Second Hokage",
-                "Third Hokage",
-                "Fourth Hokage",
-                "Fifth Hokage",
-                "Sixth Hokage",
-                "Seventh Hokage"))
+            Portfolio(data = listOf(
+                mapOf("name" to "Hasirama Senju",
+                        "desc" to "First Hokage",
+                         "img" to R.drawable.hasirama
+                      ),
+                mapOf("name" to "Tobirama Senju",
+                    "desc" to "Second Hokage",
+                    "img" to R.drawable.tobirama
+                ),
+                mapOf("name" to "Hiruzen Sarutobi",
+                    "desc" to "Third Hokage",
+                    "img" to R.drawable.miruzen
+                ),
+                mapOf("name" to "Minato Namikaze",
+                    "desc" to "Fourth Hokage",
+                    "img" to R.drawable.minato
+                ),
+                mapOf("name" to "Tsunade Senju",
+                    "desc" to "Fifth Hokage",
+                    "img" to R.drawable.tsunade
+                ),
+                mapOf("name" to "Kakashi Hatake",
+                    "desc" to "Sixth Hokage",
+                    "img" to R.drawable.kakashi
+                ),
+                mapOf("name" to "Naruto Uzumaki",
+                    "desc" to "Seventh Hokage",
+                    "img" to R.drawable.naruto_big
+                )))
         }
     }
 
 }
 
 @Composable
-fun Portfolio(data: List<String>) {
+fun Portfolio(data: List<Map<String, Any>>) {
     LazyColumn{
         items(data){
                 item ->
-            Card (modifier = Modifier.padding(13.dp)
+            Card (modifier = Modifier.padding(10.dp)
                 .fillMaxWidth(),
                 shape = RectangleShape
             ){
-                Row(modifier = Modifier.padding(13.dp)
+                Row(modifier = Modifier.padding(8.dp)
                     .background(MaterialTheme.colorScheme.surface)
                     .padding(16.dp)
                     .fillMaxWidth()){
 //                    Surface (modifier = Modifier.size(50.dp)){  }
-                    CreateImageProfile(modifier = Modifier.size(10.dp))
+                    CreateImageProfile(modifier = Modifier.size(5.dp), item.get("img") as Int)
                     Column(modifier = Modifier.padding(7.dp).align(alignment = Alignment.CenterVertically)) {
-                        Text(text = item, fontWeight = FontWeight.Bold)
-                        Text(text = "A Great Hokage",
-                            style=MaterialTheme.typography.bodySmall)
+                        Text(text = item["name"].toString(), fontWeight = FontWeight.Bold)
+                        Text(text = item["desc"].toString(), style=MaterialTheme.typography.bodySmall)
                     }
 
 
@@ -168,19 +189,20 @@ private fun CreateInfo() {
 }
 
 @Composable
-private fun CreateImageProfile(modifier: Modifier= Modifier) {
+private fun CreateImageProfile(modifier: Modifier= Modifier,Image_id: Int = R.drawable.naruto) {
     Surface(
-        modifier = Modifier.size(150.dp)
+        modifier = Modifier.size(130.dp)
             .padding(5.dp),
         shape = CircleShape,
         border = BorderStroke(0.5.dp, Color.LightGray),
         shadowElevation = 4.dp,
+        tonalElevation = 4.dp,
         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
     ) {
         Image(
-            painter = painterResource(id = R.drawable.naruto),
+            painter = painterResource(id = Image_id),
             contentDescription = "profile picture",
-            modifier = modifier.size(135.dp),
+            modifier = Modifier.size(150.dp),
             contentScale = ContentScale.Crop
         )
 
